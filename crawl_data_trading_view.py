@@ -2,7 +2,8 @@ import requests
 import json
 import pandas as pd
 import os
-import datetime
+import datetime as dt
+import investpy
 
 
 def data_from_tradingview(symbol):
@@ -15,12 +16,12 @@ def data_from_tradingview(symbol):
         'close': [],
         'volume': [],
     }
-    now = datetime.datetime.now()
+    now = dt.datetime.now()
     current_year = now.year
     for year in range(2000, current_year):
 
-        begin_date = int(datetime.datetime(year, 1, 1).timestamp())
-        end_date = int(datetime.datetime(year, 12, 31).timestamp())
+        begin_date = int(dt.datetime(year, 1, 1).timestamp())
+        end_date = int(dt.datetime(year, 12, 31).timestamp())
 
         response = requests.get(
             f'{trading_view_data_url}?symbol={symbol}&resolution=D&from={begin_date}&to={end_date}')
@@ -48,3 +49,9 @@ def getAllStocks():
    
     data_frame = pd.DataFrame(array_data)[['clientName','code','type','exchange']].sort_values(by=['code'],ignore_index=True)
     return data_frame
+
+def get_stock_price(symbol):
+    start = "01/01/2015"
+    end  = dt.datetime.now().strftime("%d/%m/%Y")
+    df = investpy.get_stocks_list(country='vietnam')
+    print(df)
