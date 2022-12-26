@@ -2,6 +2,4 @@ streamlit==0.80.0
 plotly==5.4.0
 ta==0.7.0
 numpy==1.21.5
-pmdarima==1.8.4
-statsmodels==0.13.1
 click==8.0.4
